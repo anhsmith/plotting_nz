@@ -3,7 +3,6 @@ title: "plotting_nz"
 author: "Adam Smith"
 ---
 
-
 ## Set up
 
 ```{r}
@@ -31,7 +30,6 @@ nz84 <- nztm |>
 save(nz84, file = 'data/nz84.rda')
 ```
 
-
 ## Plotting
 
 ### very basic plot
@@ -47,7 +45,6 @@ nztm |>
   ggplot() +
   geom_sf(fill='grey', colour=0) 
 ```
-
 
 ### Plot Hauraki Gulf with `ggplot`
 
