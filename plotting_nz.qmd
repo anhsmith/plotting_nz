@@ -3,18 +3,61 @@ title: "plotting_nz"
 author: "Adam Smith"
 ---
 
-## Purpose
-
-The purpose of this repo is for me to have a place to put R code for accessing and mapping New Zealand coastline data so that I don't have to reinvent the wheel every time I want to make a map.
 
 ## Set up
 
 ```{r}
-1 + 1
+library(sf)
+library(sfheaders)
+library(southernMaps)
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+## Download and save nztm data
+
+```{r}
+nztm <-   nzAndIslands |> st_as_sf()
+save(nztm, file = 'data/nztm.rda')
+```
+
+## Convert to wgs84 and save
+
+```{r}
+nz84 <- nztm |> 
+  st_transform(crs = 4326) # nztm is 2193
+
+save(nz84, file = 'data/nz84.rda')
+```
+
+```{r}
+load(file="https://github.com/anhsmith/plotting_nz/blob/d61bdfb21a56ff15dbb5f0dee11731fd14e49a7e/data/nz84.Rdata")
 ```
 
 
-## Stuff to avoid
+## Plotting
 
-- `maps::nzHires` has incomplete polygons and is incorrectly projected
+### very basic plot
 
+```{r}
+nztm |> st_geometry() |> plot(graticule=T)
+```
+
+### Plot with `ggplot`
+
+```{r}
+nztm |> 
+  ggplot() +
+  geom_sf(fill='grey', colour=0) 
+```
+
+
+### Plot Hauraki Gulf with `ggplot`
+
+```{r}
+nztm |> 
+  ggplot() +
+  geom_sf(fill='grey', colour=0) +
+  xlim(1.73e6,1.85e6) +
+  ylim(5.9e6,6.06e6)
+```

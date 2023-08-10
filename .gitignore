@@ -4,7 +4,6 @@
 .httr-oauth
 .DS_Store
 .quarto
-
 /.quarto/
-README_files
-README.html
+plotting_nz.html
+/plotting_nz_files
