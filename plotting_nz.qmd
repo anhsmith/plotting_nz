@@ -1,11 +1,17 @@
 ---
-title: "plotting_nz"
+title: "Simple plotting of NZ coastline"
 author: "Adam Smith"
+format: 
+  html:
+    toc: true
 ---
+
+The purpose of this page is to show the easiest and best way I've found to access and plot New Zealand coastline. 
 
 ## Set up
 
 ```{r}
+#| output: false
 library(sf)
 library(sfheaders)
 library(southernMaps)
@@ -13,45 +19,64 @@ library(tidyverse)
 theme_set(theme_bw())
 ```
 
-## Download and save nztm data
+## Load NZ coastline data
+
+The coastline data come from the `southernMaps` package. Don't use `nzHires`; it's bad in many ways. 
+
+### New Zealand Transverse Mercator
+
+Here's how to access the coastline in NZTM (a nice coordinate system for NZ).
 
 ```{r}
-nztm <-   nzAndIslands |> st_as_sf()
-
-save(nztm, file = 'data/nztm.rda')
+nztm <- nzAndIslands |> st_as_sf()
 ```
 
-## Convert to wgs84 and save
+### Make a version in WGS84
 
 ```{r}
 nz84 <- nztm |> 
-  st_transform(crs = 4326) # nztm is 2193
-
-save(nz84, file = 'data/nz84.rda')
+  st_transform(crs = 4326) # nztm is crs 2193
 ```
 
-## Plotting
-
-### very basic plot
-
 ```{r}
-nztm |> st_geometry() |> plot(graticule=T)
+#| eval: false
+#| include: false
+# Save
+# save(nztm, file = 'data/nztm.Rdata')
+# save(nz84, file = 'data/nz84.rda')
+
+# Load previously saved version
+# load(file = 'data/nztm.Rdata')
 ```
 
-### Plot with `ggplot`
+## Plot NZ Coastline
+
+### Basic NZ plot
 
 ```{r}
-nztm |> 
+nzp <- nztm |> 
   ggplot() +
   geom_sf(fill='grey', colour=0) 
+
+nzp
 ```
 
-### Plot Hauraki Gulf with `ggplot`
+### Hauraki Gulf
 
 ```{r}
-nztm |> 
-  ggplot() +
-  geom_sf(fill='grey', colour=0) +
-  xlim(1.73e6,1.85e6) +
-  ylim(5.9e6,6.06e6)
+nzhg <- nzp +
+  xlim(1.75e6,1.82e6) + # longitude limits in NZTM
+  ylim(5.91e6,6.0e6)    # latitude limits in NZTM
+
+nzhg
+```
+
+### Fiordland
+
+```{r}
+nzfi <- nzp +
+  xlim(1.09e6,  1.2e6) +
+  ylim(4.87e6, 5.06e6)
+
+nzfi
 ```
