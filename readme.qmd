@@ -1,0 +1,20 @@
+---
+title: "plotting_nz"
+author: "Adam Smith"
+---
+
+# Purpose
+
+The purpose of this repo is for me to have a place to put R code for accessing and mapping New Zealand coastline data so that I don't have to reinvent the wheel every time I want to make a map.
+
+# Set up
+
+```{r}
+1 + 1
+```
+
+
+# Stuff to avoid
+
+- `maps::nzHires` has incomplete polygons and is incorrectly projected
+
