@@ -3,6 +3,11 @@ title: "plotting_nz"
 author: "Adam Smith"
 ---
 
+```{r eval=FALSE, echo=FALSE}
+# Build the paper:
+Rscript -e 'rmarkdown::render("README.Rmd")'
+```
+
 # Purpose
 
 The purpose of this repo is for me to have a place to put R code for accessing and mapping New Zealand coastline data so that I don't have to reinvent the wheel every time I want to make a map.
