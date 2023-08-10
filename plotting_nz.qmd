@@ -18,6 +18,7 @@ theme_set(theme_bw())
 
 ```{r}
 nztm <-   nzAndIslands |> st_as_sf()
+
 save(nztm, file = 'data/nztm.rda')
 ```
 
@@ -28,10 +29,6 @@ nz84 <- nztm |>
   st_transform(crs = 4326) # nztm is 2193
 
 save(nz84, file = 'data/nz84.rda')
-```
-
-```{r}
-load(file="https://github.com/anhsmith/plotting_nz/blob/d61bdfb21a56ff15dbb5f0dee11731fd14e49a7e/data/nz84.Rdata")
 ```
 
 
